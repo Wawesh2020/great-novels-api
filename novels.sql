@@ -1,17 +1,20 @@
-CREATE DATABASE books;
+CREATE DATABASE editor;
 
-CREATE USER 'books'@'localhost' IDENTIFIED BY 'bo0K$!';
+CREATE USER 'editor'@'localhost' IDENTIFIED WITH mysql_native_password BY 'e&1T0#'; 
 
-GRANT ALL ON books.* TO 'books'@'localhost';
+GRANT ALL ON editor.* TO 'editor'@'localhost';
 
-USE books;
+USE editor;
+
+
 
 CREATE TABLE authors (
-    id INT auto_increment,
-  name VARCHAR(255) NOT NULL,
+  id INT auto_increment,
+  nameFirst VARCHAR(255),
+  nameLast VARCHAR(255),
   createdAt DATETIME DEFAULT NOW(),
   updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
-  deletedAt DATETIME, 
+  deletedAt DATETIME,
   PRIMARY KEY(id)
 );
 
@@ -21,7 +24,7 @@ CREATE TABLE novels (
   authorId INT,
   createdAt DATETIME DEFAULT NOW(),
   updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
-  deletedAt DATETIME, 
+  deletedAt DATETIME,
   PRIMARY KEY(id),
   FOREIGN KEY(authorId) REFERENCES authors(id)
 );
@@ -31,7 +34,7 @@ CREATE TABLE genres (
   name VARCHAR(255),
   createdAt DATETIME DEFAULT NOW(),
   updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
-  deletedAt DATETIME, 
+  deletedAt DATETIME,
   PRIMARY KEY(id)
  );
 
@@ -40,31 +43,31 @@ CREATE TABLE novelsGenres (
   novelId INT,
   createdAt DATETIME DEFAULT NOW(),
   updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
-  deletedAt DATETIME, 
+  deletedAt DATETIME,
   FOREIGN KEY(genreId) REFERENCES genres(id),
-  FOREIGN KEY(novelId) REFERENCES novels(id)
+  FOREIGN KEY(novelId) REFERENCES novels(id) 
   
  );
 
-INSERT INTO authors (name) VALUES ("Bram Stoker");
-INSERT INTO authors (name) VALUES ("Oscar Wilde");
-INSERT INTO authors (name) VALUES ("Alice Walker");
-INSERT INTO authors (name) VALUES ("Leo Tolstoy");
-INSERT INTO authors (name) VALUES ("Charles Dickens");
-INSERT INTO authors (name) VALUES ("Arthur Miller");
-INSERT INTO authors (name) VALUES ("Alexandre Dumas");
-INSERT INTO authors (name) VALUES ("Arthur  Doyle");
-INSERT INTO authors (name) VALUES ("Robert  Stevenson");
-INSERT INTO authors (name) VALUES ("Fyodor Dostoyevsky");
-INSERT INTO authors (name) VALUES ("Agatha Christie");
-INSERT INTO authors (name) VALUES ("Ray Bradbury");
-INSERT INTO authors (name) VALUES ("George Orwell");
-INSERT INTO authors (name) VALUES ("H.G. Wells");
-INSERT INTO authors (name) VALUES ("Chinua Achebe");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Bram", "Stoker");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Oscar", "Wilde");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Alice", "Walker");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Leo", "Tolstoy");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Charles", "Dickens");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Arthur", "Miller");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Alexandre", "Dumas");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Arthur Conan",  "Doyle");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Robert Louis",  "Stevenson");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Fyodor", "Dostoyevsky");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Agatha", "Christie");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Ray", "Bradbury");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("George", "Orwell");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("H.G.", "Wells");
+INSERT INTO authors (nameFirst, nameLast) VALUES ("Chinua", "Achebe");
 
 INSERT INTO novels (title, authorId) VALUES ("Dracula", 1);
 INSERT INTO novels (title, authorId) VALUES ("The Picture of Dorian Gray", 2);
-INSERT INTO novels (title, authorId) VALUES ("The Color Purple","Alice Walker", 3);
+INSERT INTO novels (title, authorId) VALUES ("The Color Purple", 3);
 INSERT INTO novels (title, authorId) VALUES ("War and Peace", 4);
 INSERT INTO novels (title, authorId) VALUES ("A Tale of Two Cities", 5);
 INSERT INTO novels (title, authorId) VALUES ("The Crucible", 6);
