@@ -1,9 +1,9 @@
-const novelsGenres = (connection, Sequelize, genreId, novelId) =>
+const NovelsGenres = (connection, Sequelize, Genres, Novels) =>
 {
   return connection.define('novelsGenres', {
-    genreId: { type: Sequelize.INTEGER, references: { model: genreId, key: 'id' } },
-    novelId: { type: Sequelize.INTEGER, references: { model: novelId, key: 'id' } },
+    genreId: { type: Sequelize.INTEGER, references: { model: Genres, key: 'id' } },
+    novelId: { type: Sequelize.INTEGER, references: { model: Novels, key: 'id' } },
   }, { paranoid: true })
 }
 
-module.exports = novelsGenres
+module.exports = NovelsGenres

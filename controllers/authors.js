@@ -7,13 +7,22 @@ const getAllAuthors = async (request, response) =>
   return response.send(authors)
 }
 
-const getAuthorsById = async (request, response) =>
-{
-  const { id } = request.params
+const getAuthorsByFilter = async (request, response) => {
+  const { filter } = request.params
 
   const author = await models.Authors.findOne({
-    where: { id },
-    include: [{ model: models.Novels, include: [{ model: models.Genres }] }]
+    where: {
+      [models.Op.or]: [
+
+        { id: filter },
+        { nameFirst: { [models.Op.like]: `%${filter}%` } },
+        { nameLast: { [models.Op.like]: `%${filter}%` } },
+      ],
+    },
+    include: [{
+      model: models.Novels,
+      include: [{ model: models.Genres }]
+    }]
 
   })
 
@@ -22,4 +31,4 @@ const getAuthorsById = async (request, response) =>
     : response.sendStatus(404)
 }
 
-module.exports = { getAllAuthors, getAuthorsById }
+module.exports = { getAllAuthors, getAuthorsByFilter }

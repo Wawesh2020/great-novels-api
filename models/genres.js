@@ -1,4 +1,4 @@
-const genres = (connection, Sequelize) =>
+const Genres = (connection, Sequelize) =>
 {
   return connection.define('genres', {
     id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
@@ -6,4 +6,4 @@ const genres = (connection, Sequelize) =>
   }, { paranoid: true })
 }
 
-module.exports = genres
+module.exports = Genres
